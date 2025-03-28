@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Minor Masterclass over AI Strategie</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css"
+    />
+    <style>
+      :root {
+        --mystery-purple: #8a2be2;
+        --mystery-dark-purple: #5d1a9f;
+        --scooby-brown: #8b4513;
+        --mystery-machine-green: #90ee90;
+        --mystery-machine-blue: #87ceeb;
+        --velma-orange: #ff7f50;
+        --shaggy-green: #9acd32;
+        --daphne-purple: #da70d6;
+        --fred-blue: #4169e1;
+        --dark-blue: #00008b;
+        --yellow-flower: #ffd700;
+      }
+
+      body {
+        background: linear-gradient(to bottom, #5d1a9f, #87ceeb);
+        font-family: "Comic Sans MS", cursive, sans-serif;
+      }
+
+      .reveal {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+      }
+
+      .reveal h1,
+      .reveal h2,
+      .reveal h3 {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      }
+
+      .reveal h1 {
+        font-size: 2.5em;
+      }
+
+      .reveal h2 {
+        font-size: 1.8em;
+      }
+
+      .reveal section {
+        background-color: rgba(93, 26, 159, 0.7);
+        border-radius: 20px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 20px !important;
+        position: relative; /* Added for absolute positioning inside */
+      }
+
+      .mystery-machine {
+        background-color: rgba(135, 206, 235, 0.8) !important;
+        border: 10px solid #90ee90;
+        border-radius: 20px;
+      }
+
+      .profile-placeholder {
+        width: 200px;
+        height: 200px;
+        margin: 20px auto;
+        border: 5px solid #ffd700;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .circular-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .ghost {
+        position: absolute;
+        opacity: 0.2;
+        z-index: -1;
+      }
+
+      .ghost-1 {
+        top: 10%;
+        left: 5%;
+        transform: rotate(-15deg);
+      }
+
+      .ghost-2 {
+        bottom: 10%;
+        right: 5%;
+        transform: rotate(15deg);
+      }
+
+      .scooby-bullet {
+        list-style: none;
+      }
+
+      .scooby-bullet:before {
+        content: "👻";
+        margin-right: 10px;
+      }
+
+      .persona-item {
+        list-style: none;
+        margin-bottom: 15px;
+        font-size: 1em;
+      }
+
+      .persona-emoji {
+        display: inline-block;
+        font-size: 1.5em;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+
+      .persona-name {
+        font-weight: bold;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .persona-desc {
+        display: inline-block;
+        margin-left: 10px;
+        font-style: italic;
+        font-size: 0.9em;
+      }
+
+      .corner-link {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 10;
+      }
+
+      .corner-link a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.8em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+      }
+
+      .corner-link a:hover {
+        transform: scale(1.1);
+      }
+
+      .icon-placeholder {
+        width: 50px;
+        height: 50px;
+        background-color: var(--velma-orange);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        font-size: 24px;
+      }
+
+      .spooky-castle {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background-color: #00008b;
+        clip-path: polygon(
+          0% 80%,
+          10% 70%,
+          20% 80%,
+          30% 60%,
+          40% 70%,
+          50% 30%,
+          60% 50%,
+          70% 40%,
+          80% 60%,
+          90% 50%,
+          100% 80%,
+          100% 100%,
+          0% 100%
+        );
+        z-index: -1;
+      }
+
+      .spooky-castle:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent,
+          transparent 15px,
+          rgba(255, 255, 0, 0.1) 15px,
+          rgba(255, 255, 0, 0.1) 20px
+        );
+      }
+
+      .mystery-box {
+        background-color: var(--velma-orange);
+        border: 3px solid white;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px;
+        box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+      }
+
+      .mystery-box-small {
+        background-color: var(--velma-orange);
+        border: 3px solid white;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+        box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+      }
+
+      .reveal .slide-background {
+        background-image: url("/api/placeholder/800/600");
+        background-size: cover;
+        opacity: 0.1;
+      }
+
+      .mystery-machine-van {
+        width: 150px;
+        height: 100px;
+        background-color: var(--mystery-machine-green);
+        border-radius: 10px;
+        position: relative;
+        margin: 20px auto;
+      }
+
+      .mystery-machine-van:before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: 0;
+        width: 100%;
+        height: 40px;
+        background-color: var(--mystery-machine-blue);
+        border-radius: 30px 30px 0 0;
+      }
+
+      .mystery-machine-van:after {
+        content: "?";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        color: var(--yellow-flower);
+        font-weight: bold;
+      }
+
+      .column {
+        float: left;
+        width: 50%;
+      }
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .image-container {
+        width: 80%;
+        max-width: 800px;
+        margin: 20px auto;
+        border-radius: 10px;
+        border: 3px solid white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .market-cap-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .org-chart-container {
+    width: 90%;
+    max-width: 1000px;
+    max-height: 65vh; /* 65% van de viewport hoogte */
+    margin: 10px auto;
+    border-radius: 10px;
+    border: 3px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+  }
+  
+  .org-chart-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Title Slide -->
+        <section>
+          <h1>Minor Masterclass AI-Strategie</h1>
+          <div class="profile-placeholder">
+            <img src="images/personal.png" alt="Me" class="circular-image" />
+          </div>
+        </section>
+
+        <!-- AI Personas Slide (Second Slide) -->
+        <section>
+          <h2>Meet the five AI persona types</h2>
+          <ul>
+            <li class="persona-item">
+              <span class="persona-emoji">🥰</span>
+              <span class="persona-name">The Maximalist</span>
+            </li>
+            <li class="persona-item">
+              <span class="persona-emoji">🤫</span>
+              <span class="persona-name">The Underground</span>
+            </li>
+            <li class="persona-item">
+              <span class="persona-emoji">😎</span>
+              <span class="persona-name">The Rebel</span>
+            </li>
+            <li class="persona-item">
+              <span class="persona-emoji">🤩</span>
+              <span class="persona-name">The Superfan</span>
+            </li>
+            <li class="persona-item">
+              <span class="persona-emoji">🧐</span>
+              <span class="persona-name">The Observer</span>
+            </li>
+          </ul>
+          <div class="corner-link">
+            <a
+              href="https://businessdatasolutions.github.io/ai-persona-quiz/"
+              target="_blank"
+            >
+              <div class="icon-placeholder">
+                <img
+                  src="images/icon-link.png"
+                  alt="Girl in a jacket"
+                  width="500"
+                  height="600"
+                />
+              </div>
+              <span>Quiz</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Introduction Slide with Main Themes -->
+        <section>
+          <h2>Welkom in de AI Mystery Machine!</h2>
+          <div class="mystery-box">
+            <p>Samen gaan we de mysteries van AI ontrafelen</p>
+          </div>
+          <ul>
+            <li class="scooby-bullet">Waarom een AI-strategie?</li>
+            <li class="scooby-bullet">Wat maakt het zo moeilijk?</li>
+            <li class="scooby-bullet">Hoe ziet een AI-organisatie eruit?</li>
+          </ul>
+          <div class="ghost ghost-1">👻</div>
+        </section>
+
+        <!-- Theme 1: Waarom een AI-strategie? -->
+        <section>
+          <section class="mystery-machine">
+            <h2>Waarom een AI-strategie?</h2>
+            <div class="mystery-box">
+              <p>“Sleep, sleep, and obey!”</p>
+            </div>
+            <p><small>Navigeer naar rechts voor meer →</small></p>
+          </section>
+
+          <section class="mystery-machine">
+            <div class="mystery-box-small">
+              <p>De wereld in 2004</p>
+            </div>
+
+            <div class="image-container">
+              <img
+                src="images/chart2004.png"
+                alt="Marktkapitalisatie van bedrijven per sector en regio"
+                class="market-cap-image"
+                width="80"
+              />
+            </div>
+
+            <div class="ghost ghost-1">👻</div>
+          </section>
+
+          <section class="mystery-machine">
+            <div class="mystery-box-small">
+              <p>2024 - "Kijk hoe groot deze monsters zijn geworden!"</p>
+            </div>
+
+            <div class="image-container">
+              <img
+                src="images/chart2024.png"
+                alt="Marktkapitalisatie van bedrijven per sector en regio"
+                class="market-cap-image"
+              />
+            </div>
+
+            <div class="ghost ghost-1">👻</div>
+          </section>
+
+          <section class="mystery-machine">
+            <h2>Componenten van AI Strategie</h2>
+            <ul>
+              <li class="scooby-bullet">Organisatiedoelen definiëren</li>
+              <li class="scooby-bullet">Waardecreatie door AI identificeren</li>
+              <li class="scooby-bullet">
+                Prioriteiten stellen voor implementatie
+              </li>
+              <li class="scooby-bullet">Budget & resources toewijzen</li>
+            </ul>
+          </section>
+
+          <section class="mystery-machine">
+            <h2>Strategische Voordelen van AI</h2>
+            <div class="mystery-box">
+              <p>"Zoinks! Kijk wat we kunnen bereiken met AI!"</p>
+            </div>
+            <ul>
+              <li class="scooby-bullet">Concurrentievoordeel opbouwen</li>
+              <li class="scooby-bullet">Efficiëntie verhogen</li>
+              <li class="scooby-bullet">Nieuwe businessmodellen ontwikkelen</li>
+              <li class="scooby-bullet">Klantervaring verbeteren</li>
+            </ul>
+          </section>
+        </section>
+
+        <!-- Theme 2: Wat maakt het zo moeilijk? -->
+        <section>
+          <section>
+            <h2>Wat maakt AI-implementatie zo moeilijk?</h2>
+            <div class="mystery-box">
+              <p>"Jinkies! We hebben een mysterie!"</p>
+            </div>
+            <ul>
+              <li class="scooby-bullet">Data kwaliteit problemen</li>
+              <li class="scooby-bullet">Gebrek aan AI-expertise</li>
+              <li class="scooby-bullet">Organisatorische weerstand</li>
+              <li class="scooby-bullet">Technische complexiteit</li>
+            </ul>
+            <p><small>Navigeer naar rechts voor meer →</small></p>
+            <div class="ghost ghost-2">👻</div>
+          </section>
+
+          <section>
+            <h2>Uitdagingen Bij Data Management</h2>
+            <div class="mystery-box">
+              <p>"Laten we op zoek gaan naar aanwijzingen!"</p>
+            </div>
+            <ul>
+              <li class="scooby-bullet">Data silos doorbreken</li>
+              <li class="scooby-bullet">Data governance opzetten</li>
+              <li class="scooby-bullet">Data kwaliteit waarborgen</li>
+              <li class="scooby-bullet">Privacy & compliance verzekeren</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Ethische Overwegingen</h2>
+            <div class="mystery-box">
+              <p>"Laten we ervoor zorgen dat we het juiste doen!"</p>
+            </div>
+            <ul>
+              <li class="scooby-bullet">Transparantie in algoritmes</li>
+              <li class="scooby-bullet">Bias herkennen en mitigeren</li>
+              <li class="scooby-bullet">Privacy beschermen</li>
+              <li class="scooby-bullet">Menselijke waarden voorop stellen</li>
+            </ul>
+            <div class="spooky-castle"></div>
+          </section>
+        </section>
+
+        <!-- Theme 3: Hoe ziet een AI-organisatie eruit? -->
+        <section>
+          <h2>Hoe ziet een AI-organisatie eruit?</h2>
+          
+          <div class="image-container org-chart-container">
+            <img src="images/dynamic-capabilities.jpg" alt="AI-organisatie structuur diagram" class="org-chart-image">
+          </div>
+          
+          <div class="ghost ghost-2">👻</div>
+          <p><small>Navigeer naar rechts voor meer →</small></p>
+        </section>
+
+          <section>
+            <h2>AI Team Samenstellen</h2>
+            <div class="mystery-box">
+              <p>Elke Mystery Inc. teamlid heeft zijn specialiteit!</p>
+            </div>
+            <div class="row">
+              <div class="column">
+                <p>🔍 Data Scientists</p>
+                <p>🧠 AI Engineers</p>
+                <p>👁️ Domain Experts</p>
+              </div>
+              <div class="column">
+                <p>📊 Data Engineers</p>
+                <p>🤖 Product Managers</p>
+                <p>🛡️ Ethics Advisors</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>AI Tools & Technologieën</h2>
+            <div class="mystery-box">
+              <p>
+                "We hebben de juiste tools nodig om het mysterie op te lossen!"
+              </p>
+            </div>
+            <ul>
+              <li class="scooby-bullet">Machine Learning Platforms</li>
+              <li class="scooby-bullet">Data Management Tools</li>
+              <li class="scooby-bullet">MLOps & AI Governance</li>
+              <li class="scooby-bullet">Visualisatie & Dashboarding</li>
+            </ul>
+          </section>
+        </section>
+
+        <!-- AI Practical Examples Slide -->
+        <section>
+          <h2>Praktijkvoorbeelden van AI-Strategie</h2>
+          <div class="mystery-box">
+            <p>Succesverhalen waarin AI de echte "boosdoener" ontmaskerde!</p>
+          </div>
+          <ul>
+            <li class="scooby-bullet">
+              Case 1: Predictive Analytics bij financiële diensten
+            </li>
+            <li class="scooby-bullet">
+              Case 2: Natural Language Processing in klantenservice
+            </li>
+            <li class="scooby-bullet">Case 3: Computer Vision in logistiek</li>
+            <li class="scooby-bullet">
+              Case 4: Aanbevelingssystemen in retail
+            </li>
+          </ul>
+          <div class="mystery-machine-van"></div>
+        </section>
+
+        <!-- Strategy Development -->
+        <section>
+          <h2>Jouw AI Strategie Ontwikkelen</h2>
+          <div class="mystery-box">
+            <p>"Tijd voor een Scooby Snack en een plan!"</p>
+          </div>
+          <ol>
+            <li class="scooby-bullet">Huidige staat analyseren</li>
+            <li class="scooby-bullet">Strategische doelen definiëren</li>
+            <li class="scooby-bullet">Stappenplan ontwikkelen</li>
+            <li class="scooby-bullet">Resources toewijzen</li>
+            <li class="scooby-bullet">Succes meten & bijsturen</li>
+          </ol>
+        </section>
+
+        <!-- Final Slide -->
+        <section>
+          <h2>Vragen & Contact</h2>
+          <div class="mystery-box">
+            <p>
+              "We would have gotten away with it too, if it weren't for those
+              meddling AI professionals!"
+            </p>
+          </div>
+          <p>Email: uw.email@voorbeeld.nl</p>
+          <p>LinkedIn: /in/uwnaam</p>
+          <p>Twitter: @uw_handle</p>
+          <div class="mystery-machine-van"></div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        transition: "convex",
+        backgroundTransition: "zoom",
+      });
+    </script>
+  </body>
+</html>
