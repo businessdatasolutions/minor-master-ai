@@ -43,59 +43,101 @@
       .reveal h2,
       .reveal h3,
       .reveal h4 {
-        /* Added h4 for consistency */
         font-family: "Comic Sans MS", cursive, sans-serif;
-        color: #ffd700;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-      }
-
-      .reveal h1 {
-        font-size: 2.5em;
-      }
-
-      .reveal h2 {
-        font-size: 1.8em;
+        color: #ffd700; /* Default heading color */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Default shadow */
       }
 
       .reveal h3 {
-        font-size: 1.5em; /* Adjusted for sub-slides */
+        font-size: 1.5em;
+        margin-bottom: 0.3em;
+      }
+      .reveal h1 {
+        font-size: 2.5em;
+      }
+      .reveal h2 {
+        font-size: 1.8em;
       }
       .reveal h4 {
-        font-size: 1.2em; /* For smaller headings if needed */
+        font-size: 1.2em;
       }
 
       .reveal section {
-        background-color: rgba(93, 26, 159, 0.7);
+        background-color: rgba(
+          93,
+          26,
+          159,
+          0.7
+        ); /* Default section background */
         border-radius: 20px;
         box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-        color: white;
-        padding: 20px !important;
-        position: relative; /* Added for absolute positioning inside */
+        color: white; /* Default text color for sections */
+        padding: 15px !important;
+        position: relative;
       }
 
-      /* Specific background colors for ethics slides */
-      section[data-background-color="#a7f3d0"], /* Light Green */
-      section[data-background-color="#fef08a"], /* Light Yellow */
-      section[data-background-color="#e9d5ff"], /* Light Purple */
+      /* --- OPTIMALISATIES VOOR ETHIEK SLIDES (v2 - Forceer Lichte Achtergrond & Contrast) --- */
+
+      /* Forceer de lichte achtergrondkleuren en stel donkere tekst in */
+      section[data-background-color="#a7f3d0"] {
+        /* Light Green */
+        background-color: #d1fae5 !important; /* Iets andere tint groen, expliciet gezet */
+        color: #1f2937 !important; /* Donkergrijs/zwart tekst */
+      }
+      section[data-background-color="#fef08a"] {
+        /* Light Yellow */
+        background-color: #fef9c3 !important; /* Iets andere tint geel, expliciet gezet */
+        color: #1f2937 !important;
+      }
+      section[data-background-color="#e9d5ff"] {
+        /* Light Purple */
+        background-color: #f3e8ff !important; /* Iets andere tint paars, expliciet gezet */
+        color: #1f2937 !important;
+      }
       section[data-background-color="#fecaca"] {
         /* Light Red */
-        color: #333; /* Darker text for light backgrounds */
+        background-color: #fee2e2 !important; /* Iets andere tint rood, expliciet gezet */
+        color: #1f2937 !important;
       }
-      section[data-background-color="#a7f3d0"] h3,
-      section[data-background-color="#fef08a"] h3,
-      section[data-background-color="#e9d5ff"] h3,
-      section[data-background-color="#fecaca"] h3 {
-        color: #5d1a9f; /* Use a theme color for headings on light backgrounds */
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+
+      /* Heading op deze secties: Duidelijk leesbaar, donker */
+      section[data-background-color] h3 {
+        /* Target headings ONLY within data-background-color sections */
+        color: #4b5563; /* Donkergrijs voor heading */
+        text-shadow: none; /* Geen schaduw */
       }
+
+      /* Quote box: Duidelijke witte achtergrond, scherpere rand, donkere tekst */
+      .ethics-question {
+        background-color: #ffffff; /* Volledig wit */
+        border: 2px solid #6b7280; /* Grijze rand voor contrast */
+        border-radius: 8px;
+        padding: 18px;
+        margin: 15px auto 20px auto; /* Iets meer ruimte onderaan */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Zeer subtiele schaduw */
+        max-width: 85%;
+        color: #111827; /* Zeer donkergrijs/zwart */
+        font-style: normal; /* Normaal font-style voor betere leesbaarheid quote */
+        font-size: 1.1em;
+        line-height: 1.5;
+      }
+
+      /* Prompt: Duidelijk leesbaar */
+      .ethics-prompt {
+        margin-top: 15px;
+        font-weight: bold;
+        color: #374151; /* Iets lichter donkergrijs */
+        font-size: 1.15em; /* Iets groter */
+      }
+      /* --- EINDE OPTIMALISATIES ETHIEK SLIDES (v2) --- */
 
       .mystery-machine {
         background-color: rgba(135, 206, 235, 0.8) !important;
         border: 10px solid #90ee90;
         border-radius: 20px;
       }
+      /* Heading on mystery machine slides needs specific color */
       .mystery-machine h3 {
-        /* Ensure headings are visible */
         color: var(--mystery-dark-purple);
         text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
       }
@@ -128,13 +170,12 @@
       .ghost {
         position: absolute;
         opacity: 0.2;
-        z-index: -1; /* Ensure ghosts are behind content */
-        width: 80px; /* Give ghosts a size */
+        z-index: -1;
+        width: 80px;
         height: auto;
       }
 
       .ghost img {
-        /* Style the image inside the ghost div */
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -152,49 +193,22 @@
         transform: rotate(15deg);
       }
 
-      /* Add a ghost image - replace 'path/to/ghost.png' */
       .ghost:before {
-        content: "👻"; /* Using emoji as fallback or primary */
-        font-size: 5em; /* Make emoji large */
-        /* Alternatively, use a background image: */
-        /* content: "";
-          display: block;
-          width: 80px;
-          height: 100px;
-          background-image: url('path/to/ghost.png');
-          background-size: contain;
-          background-repeat: no-repeat; */
+        content: "👻";
+        font-size: 5em;
       }
 
       .scooby-bullet {
         list-style: none;
-        padding-left: 0; /* Remove default padding */
-        margin-bottom: 0.8em; /* Add some space between items */
+        padding-left: 0;
+        margin-bottom: 0.8em;
       }
 
       .scooby-bullet:before {
-        content: "🐾"; /* Scooby paw print */
+        content: "🐾";
         margin-right: 10px;
-        font-size: 1.2em; /* Make icon slightly larger */
-        color: var(--scooby-brown); /* Scooby brown color */
-      }
-
-      /* Style for the ethics questions */
-      .ethics-question {
-        background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
-        border: 3px solid var(--mystery-dark-purple);
-        border-radius: 10px;
-        padding: 15px;
-        margin: 20px auto; /* Center it */
-        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
-        max-width: 80%; /* Limit width */
-        color: #333; /* Dark text */
-        font-style: italic;
-      }
-      .ethics-prompt {
-        margin-top: 15px;
-        font-weight: bold;
-        color: #333; /* Dark text */
+        font-size: 1.2em;
+        color: var(--scooby-brown);
       }
 
       .persona-item {
@@ -225,8 +239,8 @@
 
       .corner-link {
         position: absolute;
-        bottom: 20px;
-        right: 20px;
+        bottom: 15px;
+        right: 15px;
         z-index: 10;
       }
 
@@ -257,10 +271,10 @@
         border: 2px solid white;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         font-size: 24px;
-        overflow: hidden; /* Ensure image stays within bounds */
+        overflow: hidden;
       }
       .icon-placeholder img {
-        width: 80%; /* Adjust image size inside placeholder */
+        width: 80%;
         height: 80%;
         object-fit: contain;
       }
@@ -269,8 +283,8 @@
         position: absolute;
         bottom: 0;
         right: 0;
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
         background-color: #00008b;
         clip-path: polygon(
           0% 80%,
@@ -288,7 +302,7 @@
           0% 100%
         );
         z-index: -1;
-        opacity: 0.5; /* Make it less prominent */
+        opacity: 0.4;
       }
 
       .spooky-castle:after {
@@ -301,9 +315,9 @@
         background: repeating-linear-gradient(
           to bottom,
           transparent,
-          transparent 15px,
-          rgba(255, 255, 0, 0.1) 15px,
-          rgba(255, 255, 0, 0.1) 20px
+          transparent 10px,
+          rgba(255, 255, 0, 0.08) 10px,
+          rgba(255, 255, 0, 0.08) 15px
         );
       }
 
@@ -311,44 +325,41 @@
         background-color: var(--velma-orange);
         border: 3px solid white;
         border-radius: 10px;
-        padding: 20px;
-        margin: 20px auto; /* Center the box */
+        padding: 15px;
+        margin: 15px auto;
         box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
-        max-width: 70%; /* Prevent it from being too wide */
+        max-width: 70%;
       }
 
       .mystery-box-small {
         background-color: var(--velma-orange);
         border: 3px solid white;
         border-radius: 10px;
-        padding: 10px;
-        margin: 10px auto; /* Center the box */
+        padding: 8px;
+        margin: 10px auto;
         box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
-        max-width: 80%; /* Limit width */
+        max-width: 80%;
       }
 
-      /* No placeholder background needed if body background is set */
-      /* .reveal .slide-background { ... } */
-
       .mystery-machine-van {
-        width: 150px;
-        height: 100px;
+        width: 120px;
+        height: 80px;
         background-color: var(--mystery-machine-green);
-        border-radius: 10px;
+        border-radius: 8px;
         position: relative;
-        margin: 20px auto;
-        border: 3px solid var(--mystery-machine-blue);
+        margin: 15px auto;
+        border: 2px solid var(--mystery-machine-blue);
       }
 
       .mystery-machine-van:before {
         content: "";
         position: absolute;
-        top: -20px; /* Adjusted position */
-        left: 10px; /* Indent */
-        width: calc(100% - 20px); /* Adjust width */
-        height: 30px; /* Adjusted height */
+        top: -15px;
+        left: 8px;
+        width: calc(100% - 16px);
+        height: 25px;
         background-color: var(--mystery-machine-blue);
-        border-radius: 20px 20px 0 0; /* Adjusted radius */
+        border-radius: 15px 15px 0 0;
       }
 
       .mystery-machine-van:after {
@@ -357,8 +368,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 48px;
-        color: var(--velma-orange); /* Orange question mark */
+        font-size: 36px;
+        color: var(--velma-orange);
         font-weight: bold;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       }
@@ -366,12 +377,12 @@
       .column {
         float: left;
         width: 50%;
-        padding: 0 10px; /* Add padding */
-        box-sizing: border-box; /* Include padding in width */
+        padding: 0 10px;
+        box-sizing: border-box;
       }
       .column p {
-        /* Style text within columns */
-        margin-bottom: 1em;
+        margin-bottom: 0.8em;
+        font-size: 0.9em;
       }
 
       .row:after {
@@ -382,55 +393,75 @@
 
       .image-container {
         width: 90%;
-        max-width: 700px; /* Iets kleiner gemaakt */
-        max-height: 55vh; /* Verlaagd van 60vh */
-        margin: 15px auto;
+        max-width: 700px;
+        max-height: 55vh;
+        margin: 10px auto;
         border-radius: 10px;
         border: 3px solid white;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         overflow: hidden;
-        display: flex; /* Behoud flexbox */
+        display: flex;
         justify-content: center;
         align-items: center;
         background-color: white;
       }
 
       .market-cap-image {
-        /* width: 100%; */ /* Verwijderd, laat max-width/max-height het werk doen */
-        /* height: auto; */ /* Verwijderd */
-        max-width: 100%; /* Zorgt dat het niet breder wordt dan container */
-        max-height: 100%; /* Zorgt dat het niet hoger wordt dan container */
-        object-fit: contain; /* BELANGRIJK: schaalt met behoud aspect ratio binnen container */
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
         display: block;
       }
 
       .org-chart-container {
         width: 90%;
-        max-width: 700px; /* Iets kleiner gemaakt */
-        max-height: 65vh; /* Verlaagd van 60vh */
-        margin: 15px auto;
+        max-width: 850px;
+        max-height: 75vh;
+        margin: 5px auto;
         border-radius: 10px;
         border: 3px solid white;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         overflow: hidden;
-        display: flex; /* Behoud flexbox */
+        display: flex;
         justify-content: center;
         align-items: center;
         background-color: white;
+        padding: 2px;
       }
 
       .org-chart-image {
         max-width: 100%;
         max-height: 100%;
-        object-fit: contain; /* Was al correct */
+        object-fit: contain;
         display: block;
       }
+
+      .reveal small {
+        color: #eee; /* Still light on dark backgrounds */
+        font-style: italic;
+        font-size: 0.8em;
+        display: block;
+        margin-top: 5px;
+      }
+      /* Make small text dark on light backgrounds */
+      section[data-background-color] small {
+        color: #555;
+      }
+
+      .reveal ul,
+      .reveal ol {
+        margin-bottom: 0.5em;
+      }
+      .reveal li {
+        margin-bottom: 0.5em;
+      }
+
       .scooby-driver-image-container {
-        width: 250px; /* Adjust width as needed */
-        height: 250px; /* Adjust height as needed */
-        margin: 15px auto; /* Center it and add some margin */
-        border: 5px solid var(--velma-orange); /* Themed border */
-        border-radius: 15px; /* Slightly rounded corners */
+        width: 250px;
+        height: 250px;
+        margin: 15px auto;
+        border: 5px solid var(--velma-orange);
+        border-radius: 15px;
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -441,12 +472,7 @@
       .scooby-driver-image-container img {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Cover ensures the container is filled */
-      }
-      /* Add small text style */
-      .reveal small {
-        color: #eee; /* Lighter color for hints */
-        font-style: italic;
+        object-fit: cover;
       }
     </style>
   </head>
@@ -586,41 +612,27 @@
         </section>
         <!-- End of Theme 1 -->
 
-        <!-- Theme 2: Wat maakt het zo moeilijk? (Vertical Navigation) -->
+        <!-- Theme 2: Moeilijkheden (Vertical) -->
         <section>
-          <!-- Slide 2.1: Intro -->
           <section>
+            <!-- This intro slide uses default dark background -->
             <h3>Wat maakt AI-implementatie zo moeilijk?</h3>
             <div class="mystery-box">
               <p>"Jinkies! We've got another mystery on our hands!"</p>
             </div>
-            <ul>
-              <li class="scooby-bullet">Data & Technische Hobbels</li>
-              <li class="scooby-bullet">Gebrek aan Expertise</li>
-              <li class="scooby-bullet">Organisatorische Weerstand</li>
-              <li class="scooby-bullet">En... Ethische Spoken!</li>
-            </ul>
-            <p>
-              <small>Navigeer naar beneden voor ethische dilemma's ↓</small>
-            </p>
             <div class="ghost ghost-2"></div>
           </section>
-
           <!-- Slide 2.2: Ethics - Mental Awareness -->
           <section data-background-color="#a7f3d0">
-            <!-- Light Green -->
-            <h3>Ethiek: Mentaal bewustzijn</h3>
+            <!-- Attribute still useful for logic/themes -->
             <blockquote class="ethics-question">
               "Als een AI-chatbot zegt: 'Ik begrijp helemaal hoe je je voelt',
               is dat misleidend."
             </blockquote>
             <p class="ethics-prompt">Eens of oneens?</p>
           </section>
-
           <!-- Slide 2.3: Ethics - Human-AI Relationships -->
           <section data-background-color="#fef08a">
-            <!-- Light Yellow -->
-            <h3>Ethiek: Mens-AI relaties</h3>
             <blockquote class="ethics-question">
               "Het is onmogelijk dat iemand een relatie met een AI-chatbot heeft
               die betekenisvoller is dan de relatie met hun echte familie of
@@ -628,22 +640,16 @@
             </blockquote>
             <p class="ethics-prompt">Eens of oneens?</p>
           </section>
-
           <!-- Slide 2.4: Ethics - Manners -->
           <section data-background-color="#e9d5ff">
-            <!-- Light Purple -->
-            <h3>Ethiek: Omgangsvorm</h3>
             <blockquote class="ethics-question">
               "Het is prima om onbeleefd of beledigend te zijn tegen een
               AI-chatbot, omdat het slechts een computerprogramma is."
             </blockquote>
             <p class="ethics-prompt">Eens of oneens?</p>
           </section>
-
           <!-- Slide 2.5: Ethics - Responsibility -->
           <section data-background-color="#fecaca">
-            <!-- Light Red -->
-            <h3>Ethiek: Verantwoordelijkheid</h3>
             <blockquote class="ethics-question">
               "Een AI-chatbot die vrouwen discrimineert bij het nemen van
               beslissingen tijdens sollicitatieprocedures is seksistisch."
