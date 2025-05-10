@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>AI-turbokracht voor excellent leren</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css"
+    />
+    <!-- NIEUW: Chart.js bibliotheek -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+      :root {
+        --mystery-purple: #8a2be2;
+        --mystery-dark-purple: #5d1a9f;
+        --scooby-brown: #8b4513;
+        --mystery-machine-green: #90ee90;
+        --mystery-machine-blue: #87ceeb;
+        --velma-orange: #ff7f50;
+        --shaggy-green: #a2d92b;
+        --daphne-purple: #da70d6;
+        --fred-blue: #4169e1;
+        --dark-blue: #00008b;
+        --yellow-flower: #ffd700;
+        --light-text: #f0f8ff; /* AliceBlue, goed voor lichte tekst op donkere achtergrond */
+        --grid-line-color: rgba(
+          240,
+          248,
+          255,
+          0.2
+        ); /* Lichte, subtiele grid lijnen */
+      }
+
+      body {
+        background: linear-gradient(
+          to bottom,
+          var(--mystery-dark-purple),
+          var(--mystery-machine-blue)
+        );
+        font-family: "Comic Sans MS", cursive, sans-serif;
+      }
+
+      .reveal {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        font-size: 30px;
+      }
+
+      .reveal h1,
+      .reveal h2,
+      .reveal h3,
+      .reveal h4 {
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        color: var(--yellow-flower);
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.75);
+        margin-block-start: 0.5em;
+        margin-block-end: 0.4em;
+      }
+
+      .reveal h1 {
+        font-size: 2.3em;
+      }
+      .reveal h2 {
+        font-size: 1.8em;
+      }
+      .reveal h3 {
+        font-size: 1.4em;
+      }
+      .reveal h4 {
+        font-size: 1.15em;
+      }
+
+      .reveal section {
+        background-color: rgba(60, 20, 100, 0.8);
+        border-radius: 25px;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.6);
+        color: var(--light-text);
+        padding: 25px !important;
+        position: relative;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 90%;
+        box-sizing: border-box;
+      }
+      .reveal section.center-title h1,
+      .reveal section.center-title h2,
+      .reveal section.center-title h3,
+      .reveal section.center-title p {
+        text-align: center;
+      }
+      .reveal section > *:last-child {
+        margin-bottom: 0;
+      }
+      .reveal section > *:first-child {
+        margin-top: 0;
+      }
+
+      .presenter-info {
+        font-size: 0.85em;
+        color: #e0e0e0;
+        margin-top: 0.3em;
+        line-height: 1.45;
+      }
+
+      .profile-placeholder {
+        width: 150px;
+        height: 150px;
+        margin: 10px auto 20px auto;
+        border: 4px solid var(--yellow-flower);
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .circular-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .ghost {
+        position: absolute;
+        opacity: 0.15;
+        z-index: 0;
+        width: 65px;
+        height: auto;
+      }
+      .ghost-1 {
+        top: 8%;
+        left: 4%;
+        transform: rotate(-20deg);
+      }
+      .ghost-2 {
+        bottom: 8%;
+        right: 4%;
+        transform: rotate(20deg);
+      }
+      .ghost:before {
+        content: "👻";
+        font-size: 4.5em;
+      }
+
+      .scooby-bullet {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0.5em;
+        font-size: 0.78em;
+      }
+      .scooby-bullet > li {
+        list-style-type: none;
+        margin-bottom: 0.4em;
+        padding-left: 2.8em;
+        position: relative;
+        line-height: 1.45;
+      }
+      .scooby-bullet > li:before {
+        content: "🐾";
+        position: absolute;
+        left: 0.2em;
+        top: 0.05em;
+        font-size: 1.7em;
+        color: var(--scooby-brown);
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+      }
+      .scooby-bullet ul {
+        list-style-type: none;
+        padding-left: 1.6em;
+        margin-top: 0.2em;
+        margin-bottom: 0.3em;
+      }
+      .scooby-bullet ul li {
+        list-style-type: none;
+        padding-left: 2.3em;
+        position: relative;
+        margin-bottom: 0.2em;
+        line-height: 1.35;
+      }
+      .scooby-bullet ul li:before {
+        content: "🦴";
+        position: absolute;
+        left: 0.2em;
+        top: 0.05em;
+        font-size: 1.4em;
+        color: var(--velma-orange);
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+      }
+
+      .mystery-box,
+      .mystery-box-small,
+      .column,
+      .row,
+      .reveal small,
+      .highlight-number,
+      .comparison-box,
+      .comparison-item,
+      .full-width-chart-container,
+      .prompt-slide-container-grid,
+      .prompt-balloon {
+        /* Deze stijlen blijven ongewijzigd, tenzij specifiek hieronder aangepast */
+      }
+      .mystery-box {
+        background-color: var(--velma-orange);
+        border: 3px solid white;
+        border-radius: 15px;
+        padding: 18px;
+        margin: 20px auto;
+        box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.35);
+        max-width: 75%;
+        text-align: center;
+        color: var(--mystery-dark-purple);
+      }
+      .mystery-box-small {
+        background-color: var(--velma-orange);
+        border: 2px solid white;
+        border-radius: 10px;
+        padding: 12px;
+        margin: 12px 0;
+        box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+        text-align: center;
+        color: var(--mystery-dark-purple);
+      }
+      .mystery-box-small p,
+      .mystery-box p {
+        color: var(--mystery-dark-purple);
+      }
+      .mystery-box-small .highlight-number,
+      .mystery-box .highlight-number {
+        color: var(--dark-blue);
+      }
+
+      .column {
+        padding: 0 1%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      .column p {
+        margin-bottom: 0.5em;
+        font-size: 0.9em;
+      }
+      .row {
+        margin-bottom: 1em;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .reveal small {
+        color: #c0c0c0;
+        font-style: italic;
+        font-size: 0.65em;
+        display: block;
+        margin-top: 6px;
+        text-align: center;
+      }
+      .highlight-number {
+        font-size: 1.6em;
+        color: var(--shaggy-green);
+        font-weight: bold;
+        display: block;
+        text-align: center;
+        margin: 5px 0;
+      }
+      .comparison-box {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        margin: 15px 0;
+      }
+      .comparison-item {
+        text-align: center;
+        padding: 12px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        flex: 1;
+        box-sizing: border-box;
+      }
+      .comparison-item h4 {
+        margin-top: 0;
+        font-size: 0.95em;
+        color: var(--yellow-flower);
+        margin-bottom: 6px;
+      }
+      .comparison-item p {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: var(--mystery-machine-green);
+        margin: 4px 0;
+      }
+      .comparison-item small {
+        font-size: 0.7em;
+      }
+
+      .urgent-text {
+        text-align: center;
+        font-size: 0.8em;
+        margin-top: 0.5em;
+        line-height: 1.4;
+      }
+      .urgent-text strong {
+        color: var(--yellow-flower);
+      }
+      .full-width-chart-container {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      /* Styles for the custom bar chart on slide 4 */
+      .chart-container {
+        /* This class is used on slide 4 */
+        /* Basic styling for the container of the custom bar chart */
+      }
+      .bar-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px; /* Space between bars */
+      }
+      .bar-label {
+        /* width is set inline */
+        /* font-size is set inline */
+        /* line-height is set inline */
+        color: var(--light-text);
+        margin-right: 10px; /* Space between label and bar */
+        text-align: right;
+      }
+      .bar-wrapper {
+        flex-grow: 1;
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Background for the track of the bar */
+        border-radius: 5px;
+        height: 20px; /* Or adjust as needed */
+      }
+      .bar {
+        height: 100%;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end; /* Text at the end of the bar */
+        padding-right: 8px; /* Padding for text inside bar */
+        box-sizing: border-box;
+        color: white; /* Default text color for bar percentage */
+        font-size: 0.7em; /* Smaller text for percentage inside bar */
+      }
+      .bar.highlight {
+        /* Specific color for "Studenten die AI gebruiken" */
+        background-color: var(--shaggy-green); /* Or another highlight color */
+      }
+      .bar.blue {
+        /* Specific color for "Docenten die AI gebruiken" */
+        background-color: var(--fred-blue); /* Using Fred's blue */
+      }
+      .bar.vqa-style {
+        /* Specific color for "Instellingen met AI-gebruiksbeleid" */
+        background-color: var(--velma-orange); /* Velma's orange */
+      }
+
+      .prompt-slide-container-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: flex-start;
+        gap: 20px;
+        width: 98%;
+        margin: 0.8em auto 0 auto;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+      .prompt-balloon {
+        padding: 12px 18px;
+        border-radius: 18px;
+        font-size: 0.6em;
+        line-height: 1.4;
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.35);
+        color: var(--mystery-dark-purple); /* Default text color for balloons */
+        display: flex;
+        flex-direction: column;
+        width: calc(50% - 20px);
+        min-height: 130px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      /* Accessibility Adjustments for Prompt Balloons (Example) */
+      /* You'll want to test these colors and adjust to fit your theme perfectly */
+      /* while ensuring WCAG AA contrast (4.5:1 for normal text) */
+      .prompt-balloon-1,
+      .prompt-balloon-2,
+      .prompt-balloon-4 {
+        /* Consider a darker text if these BGs remain light, or lighten BG and use dark text */
+        color: #2c0b50; /* A darker purple, test contrast */
+      }
+      .prompt-balloon-3 {
+        color: #f0f8ff; /* Light text might work if BG is dark enough */
+        /* color: #333; /* Or try a very dark text if the purple is light */
+      }
+
+      .prompt-balloon::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+      }
+      .prompt-balloon-1 {
+        background-color: var(--mystery-machine-green);
+      }
+      .prompt-balloon-1::after {
+        bottom: -14px;
+        left: 30px;
+        border-width: 15px 10px 0 10px;
+        border-color: var(--mystery-machine-green) transparent transparent
+          transparent;
+      }
+      .prompt-balloon-2 {
+        background-color: var(--mystery-machine-blue);
+      }
+      .prompt-balloon-2::after {
+        bottom: -14px;
+        right: 30px;
+        border-width: 15px 10px 0 10px;
+        border-color: var(--mystery-machine-blue) transparent transparent
+          transparent;
+      }
+      .prompt-balloon-3 {
+        background-color: var(--daphne-purple);
+        /* Original: color: white; */
+      }
+      .prompt-balloon-3::after {
+        top: -14px;
+        left: 30px;
+        border-width: 0 10px 15px 10px;
+        border-color: transparent transparent var(--daphne-purple) transparent;
+      }
+      .prompt-balloon-4 {
+        background-color: var(--velma-orange);
+      }
+      .prompt-balloon-4::after {
+        top: -14px;
+        right: 30px;
+        border-width: 0 10px 15px 10px;
+        border-color: transparent transparent var(--velma-orange) transparent;
+      }
+      .prompt-balloon .prompt-label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 1.2em;
+        color: inherit; /* Inherits from the .prompt-balloon parent */
+      }
+      .prompt-balloon-3 .prompt-label {
+        color: var(
+          --yellow-flower
+        ); /* Specific for this balloon if base color changes */
+      }
+
+      /* Stijl voor de Chart.js container */
+      .chartjs-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        margin-top: 0.5em;
+        padding: 10px;
+        box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+      }
+
+      /* Styles for Slide 5 Workflow Diagram */
+      .workflow-container {
+        display: flex;
+        align-items: center; /* Vertically align items if they have different heights */
+        justify-content: space-around; /* Distribute space */
+        margin: 1.5em 0; /* Space above/below diagram */
+        flex-wrap: wrap; /* Allow wrapping on smaller screens if needed */
+      }
+
+      .workflow-step {
+        text-align: center;
+        flex-basis: 18%; /* Allows for 4 steps + arrows; adjust if too cramped/spaced */
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 150px; /* Ensure steps have some height, adjust based on image size */
+      }
+
+      .workflow-step img.diagram-image {
+        max-width: 100%; /* Ensure image is responsive within its step */
+        height: auto;
+        max-height: 120px; /* Control image height to keep steps somewhat uniform */
+        border: 3px solid var(--yellow-flower);
+        border-radius: 10px;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        margin-bottom: 0.5em;
+      }
+
+      .workflow-step .step-label {
+        font-size: 0.7em;
+        color: var(--light-text);
+        font-weight: bold;
+        margin-top: 0.3em;
+      }
+      .workflow-step .step-icon {
+        font-size: 3em; /* Make icons larger */
+        color: var(--mystery-machine-green);
+        margin-bottom: 0.2em;
+      }
+
+      .workflow-arrow {
+        font-size: 2.5em; /* Larger arrow */
+        color: var(--yellow-flower);
+        align-self: center; /* Center arrow vertically with steps */
+        padding: 0 10px; /* Space around the arrow */
+      }
+
+      .prompt-display-box {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 2px dashed var(--velma-orange);
+        border-radius: 15px;
+        padding: 15px;
+        margin: 1em auto; /* Added some vertical margin for spacing */
+        max-width: 85%;
+        font-size: 0.6em;
+        line-height: 1.5;
+        color: var(--light-text);
+        text-align: left;
+        font-family: "Courier New", Courier, monospace; /* Good for displaying code/prompts */
+      }
+      .prompt-display-box strong {
+        color: var(--shaggy-green);
+        display: block;
+        margin-bottom: 0.5em;
+        font-size: 1.2em;
+        font-family: "Comic Sans MS", cursive, sans-serif; /* Back to theme font for label */
+      }
+
+      /* --- CSS FOR CLICKABLE IMAGE ON SLIDE 5 --- */
+      .webapp-image-link {
+        display: block; /* Ensures the link takes up the image space correctly */
+        text-decoration: none; /* Remove default link underline */
+        position: relative; /* For potential absolute positioning of an overlay if needed */
+      }
+
+      .webapp-image-link .diagram-image {
+        /* Inherits existing .diagram-image styles, which is good */
+        transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out,
+          border-color 0.25s ease-in-out;
+        cursor: pointer; /* Indicate it's clickable */
+      }
+
+      .webapp-image-link:hover .diagram-image {
+        transform: scale(1.07); /* Slightly larger pop */
+        border-color: var(--velma-orange); /* Velma's color for interaction */
+        box-shadow: 0 0 20px var(--velma-orange); /* A nice "Velma found a clue" glow! */
+      }
+
+      .click-hint {
+        display: block; /* Make it a block to appear on its own line */
+        font-size: 0.65em; /* Small, but readable */
+        color: var(--mystery-machine-green); /* Bright and thematic */
+        font-weight: bold;
+        margin-top: 0.5em; /* Space from the "step-label" */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        animation: jinkiesPulse 2s infinite ease-in-out; /* Fun pulsing animation */
+      }
+
+      @keyframes jinkiesPulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.08);
+          opacity: 0.75;
+        } /* Slight pulse */
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section class="center-title">
+          <h1>AI-turbokracht voor excellent leren</h1>
+          <p class="presenter-info">
+            Witek ten Hove <br />
+            AI Developer | Data Scientist | Owner at TH Business Data Solutions
+          </p>
+          <div class="profile-placeholder">
+            <img
+              src="images/personal.png"
+              alt="Foto van Witek ten Hove"
+              class="circular-image"
+            />
+          </div>
+        </section>
+
+        <!-- SLIDE 2: DE AI TSUNAMI - NU MET CHART.JS GRAFIEK -->
+        <section>
+          <h2
+            style="text-align: center; margin-bottom: 0.3em; font-size: 1.7em"
+          >
+            De AI-tsunami: Snelheid & Schaal
+          </h2>
+          <div class="row" style="align-items: flex-start">
+            <div class="column" style="width: 38%; padding-right: 15px">
+              <ul class="scooby-bullet">
+                <li>
+                  AI beheerst nieuwe, veeleisende benchmarks
+                  <strong style="color: var(--velma-orange)"
+                    >sneller dan ooit</strong
+                  >.
+                </li>
+                <li>
+                  Kleinere, efficiënte modellen presteren nu wat enorme modellen
+                  ~2 jaar geleden deden:
+                  <ul style="font-size: 0.95em">
+                    <li>
+                      Een
+                      <strong
+                        style="color: var(--shaggy-green); font-size: 1.1em"
+                        >142-VOUDIGE REDUCTIE</strong
+                      >
+                      in parametergrootte voor vergelijkbare MMLU-prestaties.
+                      <small>(HAI 2025, p.15)</small>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  AI verschuift snel van lab naar
+                  <strong style="color: var(--mystery-machine-blue)"
+                    >dagelijks leven</strong
+                  >
+                  (bijv. zorg, transport, ...). <small>(HAI 2025, p.3)</small>
+                </li>
+              </ul>
+            </div>
+            <div class="column" style="width: 60%">
+              <!-- NIEUWE Chart.js Container -->
+              <div class="chartjs-container">
+                <canvas id="aiPerformanceChart"></canvas>
+              </div>
+              <small
+                style="
+                  font-size: 0.6em;
+                  text-align: center;
+                  display: block;
+                  margin-top: 5px;
+                "
+                >Bron: HAI 2025, p.93 (data geapproximeerd)</small
+              >
+              <!-- Noticed you changed the source here from (data geapproximeerd) -->
+            </div>
+          </div>
+          <p class="urgent-text">
+            <em
+              >Dit is geen geleidelijke verandering; het is een
+              <strong>exponentiële golf</strong>. Houdt ons hoger onderwijs
+              gelijke tred?</em
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2 style="text-align: center">AI Overspoelt het Bedrijfsleven</h2>
+          <div class="comparison-box">
+            <div class="comparison-item">
+              <h4>
+                Organisaties die AI gebruiken<br /><span
+                  style="font-size: 0.8em; color: #ddd"
+                  >(min. 1 functie)</span
+                >
+              </h4>
+              <p>
+                55%
+                <span style="font-size: 0.7em; color: var(--light-text)"
+                  >(2023)</span
+                >
+                <span style="font-size: 1.2em; color: var(--velma-orange)"
+                  >→</span
+                >
+                78%
+                <span style="font-size: 0.7em; color: var(--light-text)"
+                  >(2024)</span
+                >
+              </p>
+              <small>Bron: HAI 2025, p.3 & p.260</small>
+            </div>
+            <div class="comparison-item">
+              <h4>
+                Organisaties die GenAI gebruiken<br /><span
+                  style="font-size: 0.8em; color: #ddd"
+                  >(min. 1 functie)</span
+                >
+              </h4>
+              <p>
+                33%
+                <span style="font-size: 0.7em; color: var(--light-text)"
+                  >(2023)</span
+                >
+                <span style="font-size: 1.2em; color: var(--velma-orange)"
+                  >→</span
+                >
+                71%
+                <span style="font-size: 0.7em; color: var(--light-text)"
+                  >(2024)</span
+                >
+              </p>
+              <small>Bron: HAI 2025, p.260</small>
+            </div>
+          </div>
+          <ul
+            class="scooby-bullet"
+            style="margin-top: 1.2em; font-size: 0.85em"
+          >
+            <li>
+              Bijna <strong style="color: var(--shaggy-green)">90%</strong> van
+              de leidende AI-modellen in 2024 kwam vanuit het
+              <strong style="color: var(--velma-orange)">bedrijfsleven</strong>.
+              <small>(HAI 2025, p.4)</small>
+            </li>
+            <li>
+              Onderzoek bevestigt consistent: AI verhoogt
+              <strong style="color: var(--mystery-machine-blue)"
+                >productiviteit</strong
+              >
+              & helpt vaardigheidskloven te dichten.
+              <small>(HAI 2025, p.3, 268-269)</small>
+            </li>
+          </ul>
+          <p class="urgent-text" style="font-size: 0.85em">
+            <em
+              >Onze studenten komen terecht in een werkveld waar AI de
+              <strong style="color: var(--yellow-flower)">nieuwe norm</strong>
+              is. Zijn zij er klaar voor? Zijn wij dat?</em
+            >
+          </p>
+        </section>
+
+        <section>
+          <h2 style="text-align: center; margin-bottom: 0.4em">
+            De AI-Uitdaging voor het Hoger Onderwijs
+          </h2>
+          <div
+            class="chart-container full-width-chart-container"
+            style="margin-bottom: 0.8em; padding-top: 8px; padding-bottom: 8px"
+          >
+            <h4
+              class="chart-title"
+              style="font-size: 0.9em; margin-bottom: 8px; text-align: center"
+            >
+              AI-Adoptie vs. Beleid in Hoger Onderwijs <br /><span
+                style="font-size: 0.7em; color: #ddd"
+                >(Begin 2025 Data)</span
+              >
+            </h4>
+            <div class="bar-item">
+              <div
+                class="bar-label"
+                style="width: 320px; font-size: 0.7em; line-height: 1.1"
+              >
+                Studenten die AI gebruiken<br />in hun studie:
+              </div>
+              <div class="bar-wrapper small-chart">
+                <div class="bar highlight small-chart-bar" style="width: 86%">
+                  86%
+                </div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div
+                class="bar-label"
+                style="width: 320px; font-size: 0.7em; line-height: 1.1"
+              >
+                Docenten die AI gebruiken<br />in hun onderwijs:
+              </div>
+              <div class="bar-wrapper small-chart">
+                <div class="bar blue small-chart-bar" style="width: 61%">
+                  61%
+                </div>
+              </div>
+            </div>
+            <div class="bar-item">
+              <div
+                class="bar-label"
+                style="width: 320px; font-size: 0.7em; line-height: 1.1"
+              >
+                Instellingen met AI-<br />gebruiksbeleid (AUP):
+              </div>
+              <div class="bar-wrapper small-chart">
+                <div class="bar vqa-style small-chart-bar" style="width: 39%">
+                  39%
+                </div>
+              </div>
+            </div>
+            <small style="font-size: 0.6em">Bron: HAI 2025, p.392</small>
+          </div>
+
+          <h4 style="margin-top: 0.2em; font-size: 1.05em">
+            De Dringende Noodzaak:
+          </h4>
+          <ul class="scooby-bullet" style="font-size: 0.75em; margin-left: 8px">
+            <li>
+              Huidige ad-hoc benaderingen riskeren nadelige gevolgen
+              (desinformatie, IP-schendingen, ethische dilemma's).
+              <small>(HAI 2025, p.393)</small>
+            </li>
+            <li>
+              We moeten
+              <strong style="color: var(--velma-orange)"
+                >onderwijs herdefiniëren</strong
+              >: AI-competenties, inclusief
+              <strong style="color: var(--daphne-purple)">ethiek</strong> &
+              <strong style="color: var(--daphne-purple)"
+                >kritische reflectie</strong
+              >, moeten de kern vormen. <small>(HAI 2025, p.393)</small>
+            </li>
+          </ul>
+          <p class="urgent-text" style="font-size: 0.8em; margin-top: 0.6em">
+            <em
+              >Als we niet daadkrachtig en
+              <strong style="color: var(--yellow-flower)">strategisch</strong>
+              handelen, laten we dan onze studenten en onze maatschappelijke
+              verantwoordelijkheid in de steek?</em
+            >
+          </p>
+        </section>
+
+        <section class="center-title">
+          <h2 style="margin-bottom: 0.1em; font-size: 1.9em">
+            Deze Slides? Gemaakt met AI Prompts!
+            <span style="font-size: 0.8em">🤖</span>
+          </h2>
+          <p style="font-size: 0.7em; margin-bottom: 0.5em">
+            Een kijkje achter de schermen van onze interactie:
+          </p>
+
+          <div class="prompt-slide-container-grid">
+            <div class="prompt-balloon prompt-balloon-1">
+              <span class="prompt-label">Start:</span>
+              "I am going to give a presentation on AI in Higher Education. Can
+              you use the information from the HAI AI Index Report 2025 to
+              create some initial slides?""
+            </div>
+            <div class="prompt-balloon prompt-balloon-2">
+              <span class="prompt-label">Visualisatie:</span>
+              "OK, the topics and information are well chosen. Thank you. Can
+              you make the information more appealing by recreating some of the
+              charts from the report?"
+            </div>
+            <div class="prompt-balloon prompt-balloon-3">
+              <span class="prompt-label">Taal:</span>
+              "Ik geef de presentatie in het Nederlands. Vertaal alles naar
+              professioneel Nederlands."
+            </div>
+            <div class="prompt-balloon prompt-balloon-4">
+              <span class="prompt-label">Layout Fix:</span>
+              "Zie de screenhot van slide #3. De tekst valt van de slide af. Kun
+              je deze slide aanpassen en zorgen dat ie er supergelikt uitziet?"
+            </div>
+          </div>
+          <p style="font-size: 0.65em; margin-top: 0.8em; text-align: center">
+            <em>Iteratie is de sleutel!</em>
+          </p>
+        </section>
+
+        <!-- SLIDE 5: Van Theorie naar Praktijk -->
+        <section class="center-title">
+          <h3 style="margin-bottom: 0.2em">
+            Van Theorie naar Praktijk: Een AI-Gedreven Demo
+          </h3>
+          <p style="font-size: 0.7em; margin-bottom: 0.5em">
+            Hoe een wetenschappelijk paper en een slimme prompt leiden tot een
+            functionele web app:
+          </p>
+
+          <div class="workflow-container">
+            <div class="workflow-step">
+              <img
+                src="images/paper-frontpage.png"
+                alt="Omslag Wetenschappelijk Artikel"
+                class="diagram-image"
+              />
+              <span class="step-label">1. Wetenschappelijk Artikel</span>
+            </div>
+            <div class="workflow-arrow">➔</div>
+            <div class="workflow-step">
+              <span class="step-icon">💬</span>
+              <!-- Prompt/Speech Bubble Icon -->
+              <span class="step-label">2. De Magische Prompt</span>
+            </div>
+            <div class="workflow-arrow">➔</div>
+            <div class="workflow-step">
+              <span class="step-icon">🤖✨</span>
+              <!-- AI/Magic Icon -->
+              <span class="step-label">3. AI Toverkracht</span>
+            </div>
+            <div class="workflow-arrow">➔</div>
+            <div class="workflow-step">
+              <a
+                href="demo/demo.html"
+                target="_blank"
+                class="webapp-image-link"
+                title="Jinkies! Klik om de web app te proberen!"
+              >
+                <img
+                  src="images/webapp-screenshot.png"
+                  alt="Screenshot Web Applicatie - Klik om te openen!"
+                  class="diagram-image"
+                />
+              </a>
+              <span class="step-label">4. Functionele Web App</span>
+              <span class="click-hint">Jinkies! Klik op de app! 🐾</span>
+            </div>
+          </div>
+
+          <div class="prompt-display-box">
+            <strong>De Gebruikte Prompt:</strong>
+            "I am working for a company that offers public transportation
+            services. At tenders I want to show our public value creation
+            capabilities. The attached paper contains a framework of value
+            creation in public procurement. I want to use this to compare my
+            capabilities with these of my main competitors. Please build a
+            webtool that allows me to do that and bases it's validity on
+            research finding in the paper. Use plain HTML, JS and Bootstrap."
+          </div>
+        </section>
+
+        <section
+          class="center-title"
+          data-background-color="var(--mystery-dark-purple)"
+        >
+          <h2
+            style="
+              font-size: 1.7em;
+              color: var(--yellow-flower);
+              margin-bottom: 0.3em;
+              margin-top: 0;
+            "
+          >
+            En Dat Was 'm Dan... Tijd de aftiteling!
+          </h2>
+          <div
+            style="
+              margin: 0.5em auto;
+              max-width: 410px;
+              border-radius: 20px;
+              overflow: hidden;
+              box-shadow: 0 0 25px var(--velma-orange);
+            "
+          >
+            <video
+              src="images/personal-van-sunset.mp4"
+              autoplay
+              loop
+              muted
+              playsinline
+              style="
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 20px;
+              "
+            >
+              Je browser ondersteunt de videotag niet. Jammerdebammer!
+            </video>
+          </div>
+          <p
+            style="
+              font-size: 0.8em;
+              color: var(--light-text);
+              margin-top: 0.5em;
+              line-height: 1.4;
+            "
+          >
+            Bedankt voor jullie aandacht! Ik race de zonsondergang
+            tegemoet...<br />
+            <span style="font-size: 1.2em; color: var(--mystery-machine-green)"
+              >Vragen? Of gewoon napraten?</span
+            >
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        plugins: [],
+        width: 1280,
+        height: 720,
+        margin: 0.04,
+        minScale: 0.2,
+        maxScale: 2.0,
+      });
+
+      function addGhostsToSlide(slideElement) {
+        if (slideElement.querySelector(".ghost-1")) return;
+        const ghost1 = document.createElement("div");
+        ghost1.classList.add("ghost", "ghost-1");
+        const ghost2 = document.createElement("div");
+        ghost2.classList.add("ghost", "ghost-2");
+        slideElement.append(ghost1, ghost2);
+      }
+      document.querySelectorAll(".slides section").forEach((slide) => {
+        addGhostsToSlide(slide);
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof Chart === "undefined") {
+          console.error("Chart.js not loaded properly");
+          const errorDiv = document.createElement("div");
+          errorDiv.innerHTML =
+            '<p style="color:red;font-weight:bold;text-align:center;padding:20px;">FOUT: Chart.js bibliotheek kon niet laden. Controleer de internetverbinding.</p>';
+          const chartContainer =
+            document.getElementById("aiPerformanceChart")?.parentElement;
+          if (chartContainer) {
+            chartContainer.appendChild(errorDiv);
+          } else {
+            const slide2 = document.querySelectorAll(".slides section")[1];
+            if (slide2) slide2.appendChild(errorDiv);
+          }
+          return;
+        }
+
+        Chart.defaults.font.family = "'Comic Sans MS', cursive, sans-serif";
+        Chart.defaults.color = getComputedStyle(document.documentElement)
+          .getPropertyValue("--light-text")
+          .trim();
+
+        const ctx = document.getElementById("aiPerformanceChart");
+        if (!ctx) {
+          console.error(
+            "Canvas element with ID 'aiPerformanceChart' not found."
+          );
+          return;
+        }
+        const chartCtx = ctx.getContext("2d");
+
+        const years = [
+          2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
+          2023, 2024,
+        ];
+        const datasets = [
+          {
+            label: "Beeldclassificatie (ImageNet Top-5)",
+            borderColor: getComputedStyle(document.documentElement)
+              .getPropertyValue("--fred-blue")
+              .trim(),
+            data: [
+              89, 91, 97, 100, 101, 102, 105, 107, 108, 108, 108, 109, 110,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "Leesbegrip (SQuAD 2.0)",
+            borderColor: getComputedStyle(document.documentElement)
+              .getPropertyValue("--mystery-machine-blue")
+              .trim(),
+            data: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              82,
+              95,
+              100,
+              105,
+              null,
+              null,
+              null,
+              null,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "Multitask taalbegrip (MMLU)",
+            borderColor: getComputedStyle(document.documentElement)
+              .getPropertyValue("--daphne-purple")
+              .trim(),
+            data: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              36,
+              60,
+              67,
+              82,
+              95,
+              102,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "PhD-niveau wetenschap (GPQA Diamond)",
+            borderColor: getComputedStyle(document.documentElement)
+              .getPropertyValue("--yellow-flower")
+              .trim(),
+            data: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              48,
+              103,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "Visueel redeneren (VQA)",
+            borderColor: "#CC99FF",
+            data: [
+              null,
+              null,
+              null,
+              null,
+              80,
+              87,
+              88,
+              91,
+              92,
+              100,
+              105,
+              105,
+              105,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "Engels taalbegrip (SuperGLUE)",
+            borderColor: "#008B8B",
+            data: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              95,
+              100,
+              100,
+              102,
+              103,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "Competitie wiskunde (MATH)",
+            borderColor: getComputedStyle(document.documentElement)
+              .getPropertyValue("--shaggy-green")
+              .trim(),
+            data: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              8,
+              60,
+              90,
+              110,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "Multimodaal begrip (MMMU)",
+            borderColor: "#CC0066",
+            data: [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              73,
+              92,
+            ],
+            spanGaps: true,
+            tension: 0.2,
+            pointRadius: 2.5,
+            borderWidth: 2,
+          },
+          {
+            label: "Menselijke baseline",
+            borderColor: "#AAA",
+            borderDash: [5, 5],
+            data: years.map(() => 100),
+            pointRadius: 0,
+            fill: false,
+            borderWidth: 2,
+          },
+        ];
+
+        new Chart(chartCtx, {
+          type: "line",
+          data: { labels: years, datasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: true,
+                text: "AI Benchmarks vs. Menselijke Prestaties",
+                font: { size: 16 },
+                padding: { top: 5, bottom: 10 },
+                color: getComputedStyle(document.documentElement)
+                  .getPropertyValue("--yellow-flower")
+                  .trim(),
+              },
+              legend: {
+                position: "bottom",
+                labels: { boxWidth: 10, padding: 10, font: { size: 9 } },
+              },
+              tooltip: {
+                enabled: true,
+                bodyFont: { size: 10 },
+                titleFont: { size: 11 },
+              },
+            },
+            elements: {
+              point: { radius: 3, hoverRadius: 5 },
+              line: { borderWidth: 2.5 },
+            },
+            scales: {
+              x: {
+                title: { display: false },
+                grid: {
+                  color: getComputedStyle(document.documentElement)
+                    .getPropertyValue("--grid-line-color")
+                    .trim(),
+                },
+                ticks: { font: { size: 10 } },
+              },
+              y: {
+                min: 0,
+                max: 120,
+                title: {
+                  display: true,
+                  text: "Prestatie vs. Mens (%)",
+                  font: { size: 10 },
+                  padding: { top: 0, bottom: 5 },
+                },
+                grid: {
+                  color: getComputedStyle(document.documentElement)
+                    .getPropertyValue("--grid-line-color")
+                    .trim(),
+                },
+                ticks: { font: { size: 10 }, stepSize: 20 },
+              },
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
