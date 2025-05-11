@@ -685,6 +685,44 @@
         max-width: 100%;
         max-height: 100%;
       }
+
+      /* --- Styles for the Title Slide Enhancements --- */
+      section[data-slide-id="title-slide"] {
+        position: relative; /* Needed for absolute positioning of children and pseudo-elements */
+        overflow: hidden; /* To contain fog and bats nicely */
+      }
+
+      /* Enhanced H1 for Title Slide */
+      section[data-slide-id="title-slide"] h1 {
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5),
+          /* Darker base shadow */ 0 0 10px var(--mystery-machine-blue),
+          /* Blue glow */ 0 0 18px rgba(138, 43, 226, 0.5); /* Fainter mystery-purple glow */
+        font-size: 2.4em; /* Slightly larger if desired */
+        margin-bottom: 0.4em;
+      }
+
+      /* Fog Effect at the bottom */
+      section[data-slide-id="title-slide"]::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 25%; /* Adjust height of the fog */
+        background: linear-gradient(
+          to top,
+          rgba(93, 26, 159, 0.35),
+          transparent
+        ); /* var(--mystery-dark-purple) with opacity */
+        z-index: 0; /* Behind everything */
+        pointer-events: none;
+      }
+
+      /* Profile Placeholder Enhancements for Title Slide */
+      section[data-slide-id="title-slide"] .profile-placeholder {
+        transform: rotate(-2.5deg); /* Slight playful tilt */
+        position: relative; /* For the magnifying glass pseudo-element */
+      }
     </style>
   </head>
   <body>
@@ -693,11 +731,12 @@
         <section
           class="center-title"
           data-background-color="var(--mystery-dark-purple)"
+          data-slide-id="title-slide"
         >
           <h1>AI-turbokracht voor excellent leren</h1>
           <p class="presenter-info">
             Witek ten Hove <br />
-            AI Developer | Data Scientist | Owner at TH Business Data Solutions
+            AI Developer | Data Scientist
           </p>
           <div class="profile-placeholder">
             <img
