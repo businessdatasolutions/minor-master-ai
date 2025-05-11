@@ -1,0 +1,212 @@
+[
+  {
+    "country": "Argentina",
+    "gdp_per_capita": 14188,
+    "ai_optimism": 60.0,
+    "region": "Latin America"
+  },
+  {
+    "country": "Australia",
+    "gdp_per_capita": 64821,
+    "ai_optimism": 72.0,
+    "region": "Oceania"
+  },
+  {
+    "country": "Belgium",
+    "gdp_per_capita": 54701,
+    "ai_optimism": 68.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Brazil",
+    "gdp_per_capita": 10295,
+    "ai_optimism": 59.0,
+    "region": "Latin America"
+  },
+  {
+    "country": "Canada",
+    "gdp_per_capita": 53431,
+    "ai_optimism": 74.0,
+    "region": "North America"
+  },
+  {
+    "country": "Chile",
+    "gdp_per_capita": 17068,
+    "ai_optimism": 65.0,
+    "region": "Latin America"
+  },
+  {
+    "country": "China",
+    "gdp_per_capita": 12614,
+    "ai_optimism": 83.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Colombia",
+    "gdp_per_capita": 6947,
+    "ai_optimism": 67.0,
+    "region": "Latin America"
+  },
+  {
+    "country": "France",
+    "gdp_per_capita": 44691,
+    "ai_optimism": 66.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Germany",
+    "gdp_per_capita": 54343,
+    "ai_optimism": 70.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Great Britain",
+    "gdp_per_capita": 49464,
+    "ai_optimism": 75.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Hungary",
+    "gdp_per_capita": 22142,
+    "ai_optimism": 55.0,
+    "region": "Europe"
+  },
+  {
+    "country": "India",
+    "gdp_per_capita": 2481,
+    "ai_optimism": 81.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Indonesia",
+    "gdp_per_capita": 4876,
+    "ai_optimism": 80.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Ireland",
+    "gdp_per_capita": 103888,
+    "ai_optimism": 69.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Italy",
+    "gdp_per_capita": 39003,
+    "ai_optimism": 64.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Japan",
+    "gdp_per_capita": 33767,
+    "ai_optimism": 76.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Malaysia",
+    "gdp_per_capita": 11379,
+    "ai_optimism": 79.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Mexico",
+    "gdp_per_capita": 13790,
+    "ai_optimism": 70.0,
+    "region": "North America"
+  },
+  {
+    "country": "Netherlands",
+    "gdp_per_capita": 64572,
+    "ai_optimism": 73.0,
+    "region": "Europe"
+  },
+  {
+    "country": "New Zealand",
+    "gdp_per_capita": 48281,
+    "ai_optimism": 71.0,
+    "region": "Oceania"
+  },
+  {
+    "country": "Peru",
+    "gdp_per_capita": 6610,
+    "ai_optimism": 70.0,
+    "region": "Latin America"
+  },
+  {
+    "country": "Poland",
+    "gdp_per_capita": 22057,
+    "ai_optimism": 62.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Romania",
+    "gdp_per_capita": 18404,
+    "ai_optimism": 58.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Russia",
+    "gdp_per_capita": 13817,
+    "ai_optimism": 54.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Saudi Arabia",
+    "gdp_per_capita": 32094,
+    "ai_optimism": 68.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Singapore",
+    "gdp_per_capita": 84734,
+    "ai_optimism": 82.0,
+    "region": "Asia"
+  },
+  {
+    "country": "South Africa",
+    "gdp_per_capita": 6023,
+    "ai_optimism": 75.0,
+    "region": "Africa"
+  },
+  {
+    "country": "South Korea",
+    "gdp_per_capita": 33121,
+    "ai_optimism": 84.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Spain",
+    "gdp_per_capita": 33509,
+    "ai_optimism": 67.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Sweden",
+    "gdp_per_capita": 55517,
+    "ai_optimism": 76.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Switzerland",
+    "gdp_per_capita": 99565,
+    "ai_optimism": 80.0,
+    "region": "Europe"
+  },
+  {
+    "country": "Thailand",
+    "gdp_per_capita": 7182,
+    "ai_optimism": 77.0,
+    "region": "Asia"
+  },
+  {
+    "country": "Turkey",
+    "gdp_per_capita": 13106,
+    "ai_optimism": 61.0,
+    "region": "Asia"
+  },
+  {
+    "country": "United States",
+    "gdp_per_capita": 82769,
+    "ai_optimism": 78.0,
+    "region": "North America"
+  }
+]

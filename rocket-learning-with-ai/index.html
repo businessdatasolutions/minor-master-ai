@@ -15,7 +15,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css"
     />
-    <!-- NIEUW: Chart.js bibliotheek -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
       :root {
@@ -197,20 +196,6 @@
         font-size: 1.4em;
         color: var(--velma-orange);
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-      }
-
-      .mystery-box,
-      .mystery-box-small,
-      .column,
-      .row,
-      .reveal small,
-      .highlight-number,
-      .comparison-box,
-      .comparison-item,
-      .full-width-chart-container,
-      .prompt-slide-container-grid,
-      .prompt-balloon {
-        /* Deze stijlen blijven ongewijzigd, tenzij specifiek hieronder aangepast */
       }
       .mystery-box {
         background-color: var(--velma-orange);
@@ -597,6 +582,109 @@
           opacity: 1;
         }
       }
+
+      .insight-slide-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start; /* Lijn items aan de bovenkant uit */
+        gap: 25px;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .insight-column {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chart-column {
+        flex: 0 0 58%; /* Geef de grafiekkolom meer breedte */
+        max-width: 58%;
+      }
+
+      .persona-column {
+        flex: 0 0 40%; /* Restrerende breedte voor de personakolom */
+        max-width: 40%;
+        align-items: center; /* Centreer items in deze kolom */
+        padding-top: 20px; /* Een beetje ruimte bovenaan */
+      }
+
+      .persona-image-container {
+        position: relative;
+        text-align: center; /* Centreer de afbeelding */
+        margin-bottom: 20px;
+      }
+
+      .persona-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 4px solid var(--yellow-flower);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .thought-bubble {
+        position: absolute;
+        background-color: var(--mystery-machine-green);
+        color: var(--mystery-dark-purple);
+        padding: 10px 12px; /* Kleinere padding */
+        border-radius: 15px;
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+        font-size: 0.6em; /* Lettergrootte iets verkleind */
+        line-height: 1.35; /* Regelafstand iets verkleind */
+        width: 180px; /* Breedte iets aangepast */
+        text-align: left;
+        z-index: 10;
+        /* --- AANGEPASTE POSITIONERING OM OVERLAP TE VOORKOMEN --- */
+        left: calc(
+          50% + 75px + 20px
+        ); /* 50% (midden container) + 75px (halve breedte afbeelding) + 20px (grotere marge rechts van afbeelding) */
+        top: 35px; /* Verlaagd om overlap te verminderen (was 25px, daarna 30px) */
+        transform: translateY(0);
+      }
+
+      .thought-bubble p {
+        margin: 0;
+        color: var(--mystery-dark-purple);
+      }
+
+      .thought-bubble p strong {
+        color: var(--dark-blue);
+      }
+
+      .thought-bubble::after {
+        content: "";
+        position: absolute;
+        top: 30px; /* Aangepast om beter bij de ballon aan te sluiten indien de ballon hoger/lager is */
+        right: 100%;
+        transform: translateY(
+          0
+        ); /* Reset translateY als top direct wordt ingesteld */
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 8px 12px 8px 0; /* Staartje iets kleiner gemaakt */
+        border-color: transparent var(--mystery-machine-green) transparent
+          transparent;
+      }
+
+      .hypotheses-container {
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .hypotheses-container .scooby-bullet {
+        font-size: 0.75em;
+      }
+      .hypotheses-container .scooby-bullet > li {
+        margin-bottom: 0.6em;
+      }
+
+      .chartjs-container canvas {
+        max-width: 100%;
+        max-height: 100%;
+      }
     </style>
   </head>
   <body>
@@ -616,14 +704,15 @@
               src="images/personal.png"
               alt="Foto van Witek ten Hove"
               class="circular-image"
+              onerror="this.onerror=null; this.src='https://placehold.co/150x150/8a2be2/f0f8ff?text=Beeld+Laden'; this.alt='[Placeholder afbeelding spreker]';"
             />
           </div>
         </section>
 
-        <!-- SLIDE 2: DE AI TSUNAMI - NU MET CHART.JS GRAFIEK -->
         <section
           class="center-title"
           data-background-color="var(--mystery-dark-purple)"
+          data-slide-id="ai-tsunami-chart"
         >
           <h2
             style="text-align: center; margin-bottom: 0.3em; font-size: 1.7em"
@@ -664,7 +753,6 @@
               </ul>
             </div>
             <div class="column" style="width: 60%">
-              <!-- NIEUWE Chart.js Container -->
               <div class="chartjs-container">
                 <canvas id="aiPerformanceChart"></canvas>
               </div>
@@ -677,7 +765,6 @@
                 "
                 >Bron: HAI 2025, p.93 (data bij benadering)</small
               >
-              <!-- Noticed you changed the source here from (data geapproximeerd) -->
             </div>
           </div>
           <p class="urgent-text">
@@ -902,7 +989,205 @@
           </p>
         </section>
 
-        <!-- SLIDE 5: Van Theorie naar Praktijk -->
+        <section
+          data-background-color="var(--mystery-dark-purple)"
+          data-slide-id="vonk-van-inzicht"
+        >
+          <h2 style="text-align: center; margin-bottom: 15px; font-size: 1.8em">
+            Een Vonk van Inzicht: AI Optimisme
+          </h2>
+          <div class="insight-slide-container">
+            <div class="insight-column chart-column">
+              <h3
+                style="
+                  font-size: 1.1em;
+                  text-align: center;
+                  color: var(--yellow-flower);
+                  margin-bottom: 10px;
+                "
+              >
+                AI Optimisme per Land (%)
+              </h3>
+              <div
+                class="chartjs-container"
+                style="
+                  height: 60vh;
+                  min-height: 400px;
+                  background-color: rgba(255, 255, 255, 0.08);
+                  border-radius: 15px;
+                  padding: 15px;
+                "
+              >
+                <canvas id="aiOptimismByCountryChart"></canvas>
+              </div>
+              <small
+                style="
+                  font-size: 0.55em;
+                  text-align: center;
+                  display: block;
+                  margin-top: 5px;
+                "
+              >
+                Bron: HAI AI Index / Ipsos (data uit combined_data.json)
+              </small>
+            </div>
+            <div class="insight-column persona-column">
+              <div class="persona-image-container">
+                <img
+                  src="images/personal-thinking.png"
+                  alt="[Afbeelding van de spreker]"
+                  class="persona-image"
+                  onerror="this.onerror=null; this.src='https://placehold.co/150x150/8a2be2/f0f8ff?text=Beeld+Laden'; this.alt='[Placeholder afbeelding spreker]';"
+                />
+                <div class="thought-bubble">
+                  <p>
+                    Hmm, AI optimisme verschilt sterk per land... Zouden de
+                    'have-nots' AI meer als <strong>kans</strong> zien en de
+                    'haves' meer als <strong>bedreiging</strong>?
+                  </p>
+                </div>
+              </div>
+              <div class="hypotheses-container">
+                <h3
+                  style="
+                    font-size: 1.1em;
+                    color: var(--yellow-flower);
+                    margin-top: 20px;
+                    margin-bottom: 10px;
+                  "
+                >
+                  Mijn Hypotheses:
+                </h3>
+                <ul class="scooby-bullet" style="font-size: 0.8em">
+                  <li>
+                    Zien inwoners van landen met
+                    <strong style="color: var(--mystery-machine-blue)"
+                      >lagere welvaart</strong
+                    >
+                    AI als een kans om hun positie te verbeteren?
+                  </li>
+                  <li>
+                    Zien mensen in
+                    <strong style="color: var(--shaggy-green)"
+                      >rijkere landen</strong
+                    >
+                    AI meer als een bedreiging voor hun verworven status?
+                  </li>
+                </ul>
+              </div>
+              <p class="urgent-text" style="font-size: 0.7em; margin-top: 25px">
+                <em>Deze vraag leidde tot verder onderzoek...</em>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          data-background-color="var(--mystery-dark-purple)"
+          data-slide-id="ai-aan-het-werk"
+        >
+          <div class="ghost ghost-1"></div>
+          <div class="ghost ghost-2"></div>
+          <h2 style="text-align: center; margin-bottom: 15px">
+            Achter de Schermen: De AI aan het Werk
+          </h2>
+          <p style="text-align: center; font-size: 0.8em; margin-bottom: 25px">
+            Terwijl de AI-assistent mijn verzoek verwerkte, kon ik de stappen in
+            het "denkproces" observeren:
+          </p>
+
+          <div
+            class="prompt-slide-container-grid four-balloons"
+            style="align-items: stretch"
+          >
+            <div
+              class="prompt-balloon prompt-balloon-1"
+              style="min-height: 160px"
+            >
+              <span class="prompt-label" style="font-size: 1.1em"
+                >Stap 1: Data Verzamelen 📊</span
+              >
+              De AI zocht naar de meest actuele BBP per capita data en probeerde
+              de juiste regio-indeling voor elk land te bepalen.
+            </div>
+            <div
+              class="prompt-balloon prompt-balloon-2"
+              style="min-height: 160px"
+            >
+              <span class="prompt-label" style="font-size: 1.1em"
+                >Stap 2: Data Combineren 🔗</span
+              >
+              Vervolgens werden de AI optimisme data (die ik aanleverde)
+              samengevoegd met de nieuw gevonden BBP-gegevens.
+            </div>
+            <div
+              class="prompt-balloon prompt-balloon-4"
+              style="min-height: 160px"
+            >
+              <span class="prompt-label" style="font-size: 1.1em"
+                >Stap 3: Output Genereren 📄</span
+              >
+              De AI creëerde eerst een gestructureerd JSON-bestand met alle
+              gecombineerde data.
+            </div>
+            <div
+              class="prompt-balloon prompt-balloon-3"
+              style="min-height: 160px"
+            >
+              <span class="prompt-label" style="font-size: 1.1em"
+                >Stap 4: Visualisatie Bouwen 📈</span
+              >
+              Tot slot werd o.b.v. het JSON de interactieve webapp (de
+              scatterplot grafiek) gegenereerd.
+            </div>
+          </div>
+        </section>
+
+        <section
+          data-background-color="var(--mystery-dark-purple)"
+          data-slide-id="gdp-optimism-scatter"
+        >
+          <div class="ghost ghost-1"></div>
+          <div class="ghost ghost-2"></div>
+          <h2 style="text-align: center">
+            Het Resultaat: AI Optimisme vs. BBP
+          </h2>
+          <p style="text-align: center; font-size: 0.8em; margin-bottom: 15px">
+            Uiteindelijk leverde dit een interactieve grafiek op waarmee ik mijn
+            hypothese kon toetsen:
+          </p>
+          <div
+            class="chartjs-container"
+            style="
+              height: 55vh;
+              width: 90%;
+              margin: 0 auto;
+              background-color: rgba(255, 255, 255, 0.08);
+              border-radius: 15px;
+              padding: 15px;
+            "
+          >
+            <canvas id="optimismGdpChart"></canvas>
+          </div>
+          <small
+            style="
+              font-size: 0.6em;
+              text-align: center;
+              display: block;
+              margin-top: 10px;
+            "
+          >
+            Interactieve grafiek: AI Optimisme (%) versus BBP per Capita (USD).
+            Beweeg over de datapunten voor landdetails.
+          </small>
+          <p class="urgent-text" style="margin-top: 20px">
+            <em
+              >Nu kon de analyse beginnen: bevestigt de data mijn aannames over
+              de relatie tussen welvaart en AI-perceptie?</em
+            >
+          </p>
+        </section>
+
         <section
           class="center-title"
           data-background-color="var(--mystery-dark-purple)"
@@ -921,19 +1206,18 @@
                 src="images/paper-frontpage.png"
                 alt="Omslag Wetenschappelijk Artikel"
                 class="diagram-image"
+                onerror="this.onerror=null; this.src='https://placehold.co/120x120/8a2be2/f0f8ff?text=Paper'; this.alt='Placeholder Paper';"
               />
               <span class="step-label">1. Wetenschappelijk Artikel</span>
             </div>
             <div class="workflow-arrow">➔</div>
             <div class="workflow-step">
               <span class="step-icon">💬</span>
-              <!-- Prompt/Speech Bubble Icon -->
               <span class="step-label">2. De Magische Prompt</span>
             </div>
             <div class="workflow-arrow">➔</div>
             <div class="workflow-step">
               <span class="step-icon">🤖✨</span>
-              <!-- AI/Magic Icon -->
               <span class="step-label">3. AI Toverkracht</span>
             </div>
             <div class="workflow-arrow">➔</div>
@@ -948,6 +1232,7 @@
                   src="images/webapp-screenshot.png"
                   alt="Screenshot Web Applicatie - Klik om te openen!"
                   class="diagram-image"
+                  onerror="this.onerror=null; this.src='https://placehold.co/120x120/8a2be2/f0f8ff?text=App'; this.alt='Placeholder WebApp';"
                 />
               </a>
               <span class="step-label">4. Functionele Web App</span>
@@ -1001,6 +1286,7 @@
                 display: block;
                 border-radius: 20px;
               "
+              onerror="this.parentElement.innerHTML = '<p style=\'color:var(--light-text); text-align:center; padding:20px;\'>Jammerdebammer! Videobestand niet gevonden.</p>';"
             >
               Je browser ondersteunt de videotag niet. Jammerdebammer!
             </video>
@@ -1025,9 +1311,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.js"></script>
     <script>
+      // Globale RevealJS initialisatie
       Reveal.initialize({
         hash: true,
-        plugins: [],
+        plugins: [], // Voeg hier eventuele RevealJS plugins toe
         width: 1280,
         height: 720,
         margin: 0.04,
@@ -1035,49 +1322,24 @@
         maxScale: 2.0,
       });
 
+      // Helper functie om spoken aan slides toe te voegen
       function addGhostsToSlide(slideElement) {
-        if (slideElement.querySelector(".ghost-1")) return;
+        if (!slideElement || slideElement.querySelector(".ghost-1")) return;
         const ghost1 = document.createElement("div");
         ghost1.classList.add("ghost", "ghost-1");
         const ghost2 = document.createElement("div");
         ghost2.classList.add("ghost", "ghost-2");
         slideElement.append(ghost1, ghost2);
       }
-      document.querySelectorAll(".slides section").forEach((slide) => {
-        addGhostsToSlide(slide);
-      });
 
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof Chart === "undefined") {
-          console.error("Chart.js not loaded properly");
-          const errorDiv = document.createElement("div");
-          errorDiv.innerHTML =
-            '<p style="color:red;font-weight:bold;text-align:center;padding:20px;">FOUT: Chart.js bibliotheek kon niet laden. Controleer de internetverbinding.</p>';
-          const chartContainer =
-            document.getElementById("aiPerformanceChart")?.parentElement;
-          if (chartContainer) {
-            chartContainer.appendChild(errorDiv);
-          } else {
-            const slide2 = document.querySelectorAll(".slides section")[1];
-            if (slide2) slide2.appendChild(errorDiv);
-          }
-          return;
-        }
+      // Functie om de AI Performance Chart (lijngrafiek) te initialiseren
+      function initAiPerformanceChart() {
+        const canvasId = "aiPerformanceChart";
+        const ctx = document.getElementById(canvasId);
+        if (!ctx || ctx.chart) return; // Al geïnitialiseerd of canvas niet gevonden
 
-        Chart.defaults.font.family = "'Comic Sans MS', cursive, sans-serif";
-        Chart.defaults.color = getComputedStyle(document.documentElement)
-          .getPropertyValue("--light-text")
-          .trim();
-
-        const ctx = document.getElementById("aiPerformanceChart");
-        if (!ctx) {
-          console.error(
-            "Canvas element with ID 'aiPerformanceChart' not found."
-          );
-          return;
-        }
+        console.log(`Initializing ${canvasId}`);
         const chartCtx = ctx.getContext("2d");
-
         const years = [
           2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
           2023, 2024,
@@ -1173,7 +1435,7 @@
           },
           {
             label: "Visueel redeneren (VQA)",
-            borderColor: "#CC99FF",
+            borderColor: "#CC99FF", // Velma-achtige kleur, iets lichter paars
             data: [
               null,
               null,
@@ -1196,7 +1458,7 @@
           },
           {
             label: "Engels taalbegrip (SuperGLUE)",
-            borderColor: "#008B8B",
+            borderColor: "#008B8B", // Donker cyaan
             data: [
               null,
               null,
@@ -1244,7 +1506,7 @@
           },
           {
             label: "Multimodaal begrip (MMMU)",
-            borderColor: "#CC0066",
+            borderColor: "#CC0066", // Sterk roze/magenta
             data: [
               null,
               null,
@@ -1275,8 +1537,7 @@
             borderWidth: 2,
           },
         ];
-
-        new Chart(chartCtx, {
+        ctx.chart = new Chart(chartCtx, {
           type: "line",
           data: { labels: years, datasets },
           options: {
@@ -1335,6 +1596,362 @@
             },
           },
         });
+      }
+
+      // Functie om de Optimism vs GDP scatter plot te initialiseren
+      function initOptimismGdpChart() {
+        const canvasId = "optimismGdpChart";
+        const optimismGdpChartCanvas = document.getElementById(canvasId);
+        if (!optimismGdpChartCanvas || optimismGdpChartCanvas.chart) return;
+
+        console.log(`Initializing ${canvasId}`);
+        fetch("combined_data.json")
+          .then((response) => {
+            if (!response.ok)
+              throw new Error(
+                "Netwerk response was niet ok: " + response.statusText
+              );
+            return response.json();
+          })
+          .then((data) => {
+            const regions = [...new Set(data.map((d) => d.region))];
+            const colorPalette = {
+              Asia: "rgba(54, 162, 235, 0.9)",
+              Europe: "rgba(153, 102, 255, 0.9)",
+              "North America": "rgba(224, 72, 163, 0.9)",
+              "Latin America": "rgba(255, 159, 64, 0.9)",
+              Africa: "rgba(75, 192, 192, 0.9)",
+              Oceania: "rgba(255, 99, 71, 0.9)",
+            };
+            const chartTextColor =
+              getComputedStyle(document.documentElement)
+                .getPropertyValue("--light-text")
+                .trim() || "#f0f8ff";
+            const chartGridColor =
+              getComputedStyle(document.documentElement)
+                .getPropertyValue("--grid-line-color")
+                .trim() || "rgba(240, 248, 255, 0.2)";
+            const datasets = regions.map((region) => ({
+              label: region,
+              data: data
+                .filter((d) => d.region === region)
+                .map((d) => ({
+                  x: d.gdp_per_capita,
+                  y: d.ai_optimism,
+                  label: d.country,
+                })),
+              backgroundColor:
+                colorPalette[region] || "rgba(201, 203, 207, 0.8)",
+              pointRadius: 7,
+              pointHoverRadius: 9,
+            }));
+            optimismGdpChartCanvas.chart = new Chart(
+              optimismGdpChartCanvas.getContext("2d"),
+              {
+                type: "scatter",
+                data: { datasets },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: "bottom",
+                      labels: {
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 14,
+                        },
+                      },
+                    },
+                    tooltip: {
+                      backgroundColor: "rgba(0,0,0,0.8)",
+                      titleFont: {
+                        family: "'Comic Sans MS', cursive, sans-serif",
+                        size: 16,
+                      },
+                      bodyFont: {
+                        family: "'Comic Sans MS', cursive, sans-serif",
+                        size: 14,
+                      },
+                      callbacks: {
+                        label: function (context) {
+                          const item = context.raw;
+                          return `${
+                            item.label
+                          }: BBP $${item.x.toLocaleString()}, Optimisme ${
+                            item.y
+                          }%`;
+                        },
+                      },
+                    },
+                  },
+                  scales: {
+                    x: {
+                      title: {
+                        display: true,
+                        text: "BBP per Capita (USD)",
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 16,
+                          weight: "bold",
+                        },
+                      },
+                      ticks: {
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 12,
+                        },
+                        callback: function (value) {
+                          return "$" + value / 1000 + "K";
+                        },
+                      },
+                      grid: { color: chartGridColor },
+                    },
+                    y: {
+                      title: {
+                        display: true,
+                        text: "AI Optimisme (%)",
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 16,
+                          weight: "bold",
+                        },
+                      },
+                      ticks: {
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 12,
+                        },
+                        callback: function (value) {
+                          return value + "%";
+                        },
+                      },
+                      grid: { color: chartGridColor },
+                      min: Math.min(...data.map((d) => d.ai_optimism)) - 5,
+                      max: Math.max(...data.map((d) => d.ai_optimism)) + 5,
+                    },
+                  },
+                },
+              }
+            );
+          })
+          .catch((error) => {
+            console.error(`Fout bij laden ${canvasId}:`, error);
+            if (optimismGdpChartCanvas.getContext("2d")) {
+              const ctx = optimismGdpChartCanvas.getContext("2d");
+              ctx.font = "16px 'Comic Sans MS'";
+              ctx.fillStyle = "red";
+              ctx.textAlign = "center";
+              ctx.fillText(
+                "Kon grafiekdata niet laden.",
+                optimismGdpChartCanvas.width / 2,
+                optimismGdpChartCanvas.height / 2
+              );
+            }
+          });
+      }
+
+      // Functie om de AI Optimism by Country bar chart te initialiseren
+      function initAiOptimismByCountryChart() {
+        const canvasId = "aiOptimismByCountryChart";
+        const optimismByCountryCanvas = document.getElementById(canvasId);
+        if (!optimismByCountryCanvas || optimismByCountryCanvas.chart) return;
+
+        console.log(`Initializing ${canvasId}`);
+        fetch("combined_data.json")
+          .then((response) => {
+            if (!response.ok)
+              throw new Error(
+                "Netwerk response was niet ok: " + response.statusText
+              );
+            return response.json();
+          })
+          .then((data) => {
+            const sortedData = data.sort(
+              (a, b) => b.ai_optimism - a.ai_optimism
+            );
+            const countryNames = sortedData.map((d) => d.country);
+            const optimismScores = sortedData.map((d) => d.ai_optimism);
+            const chartTextColor =
+              getComputedStyle(document.documentElement)
+                .getPropertyValue("--light-text")
+                .trim() || "#f0f8ff";
+            const chartGridColor =
+              getComputedStyle(document.documentElement)
+                .getPropertyValue("--grid-line-color")
+                .trim() || "rgba(240, 248, 255, 0.2)";
+            const barColor =
+              getComputedStyle(document.documentElement)
+                .getPropertyValue("--velma-orange")
+                .trim() || "rgba(255, 127, 80, 0.8)";
+            const minOptimism = Math.min(...optimismScores);
+            const maxOptimism = Math.max(...optimismScores);
+            const xAxisMin = Math.floor(minOptimism / 5) * 5 - 5;
+            const xAxisMax = Math.ceil(maxOptimism / 5) * 5 + 5;
+            optimismByCountryCanvas.chart = new Chart(
+              optimismByCountryCanvas.getContext("2d"),
+              {
+                type: "bar",
+                data: {
+                  labels: countryNames,
+                  datasets: [
+                    {
+                      label: "AI Optimisme (%)",
+                      data: optimismScores,
+                      backgroundColor: barColor,
+                      borderColor:
+                        getComputedStyle(document.documentElement)
+                          .getPropertyValue("--mystery-dark-purple")
+                          .trim() || "rgba(93, 26, 159, 1)",
+                      borderWidth: 1,
+                    },
+                  ],
+                },
+                options: {
+                  indexAxis: "y",
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                      backgroundColor: "rgba(0,0,0,0.8)",
+                      titleFont: {
+                        family: "'Comic Sans MS', cursive, sans-serif",
+                        size: 14,
+                      },
+                      bodyFont: {
+                        family: "'Comic Sans MS', cursive, sans-serif",
+                        size: 12,
+                      },
+                      callbacks: {
+                        label: function (context) {
+                          return ` ${context.dataset.label}: ${context.raw}%`;
+                        },
+                      },
+                    },
+                  },
+                  scales: {
+                    x: {
+                      title: {
+                        display: true,
+                        text: "Mate van AI Optimisme (%)",
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 14,
+                          weight: "bold",
+                        },
+                      },
+                      ticks: {
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 10,
+                        },
+                        callback: function (value) {
+                          return value + "%";
+                        },
+                      },
+                      grid: { color: chartGridColor },
+                      min: xAxisMin,
+                      max: xAxisMax,
+                    },
+                    y: {
+                      ticks: {
+                        color: chartTextColor,
+                        font: {
+                          family: "'Comic Sans MS', cursive, sans-serif",
+                          size: 9,
+                        },
+                      },
+                      grid: { display: false },
+                    },
+                  },
+                },
+              }
+            );
+          })
+          .catch((error) => {
+            console.error(`Fout bij laden ${canvasId}:`, error);
+            if (optimismByCountryCanvas.getContext("2d")) {
+              const ctx = optimismByCountryCanvas.getContext("2d");
+              ctx.font = "14px 'Comic Sans MS'";
+              ctx.fillStyle = "red";
+              ctx.textAlign = "center";
+              ctx.fillText(
+                "Kon grafiekdata niet laden.",
+                optimismByCountryCanvas.width / 2,
+                optimismByCountryCanvas.height / 2
+              );
+            }
+          });
+      }
+
+      // DOMContentLoaded wordt gebruikt voor initialisaties die niet afhankelijk zijn van RevealJS 'ready' of 'slidechanged'
+      document.addEventListener("DOMContentLoaded", function () {
+        // Controleer of Chart.js correct is geladen
+        if (typeof Chart === "undefined") {
+          console.error("Chart.js not loaded properly");
+          document.body.insertAdjacentHTML(
+            "afterbegin",
+            '<p style="color:red;font-weight:bold;text-align:center;padding:20px;background:white;border-bottom:2px solid red;position:fixed;width:100%;top:0;left:0;z-index:9999;">FOUT: Chart.js bibliotheek kon niet laden. Grafieken werken mogelijk niet. Controleer de console en internetverbinding.</p>'
+          );
+          return;
+        }
+
+        // Stel globale Chart.js defaults in
+        Chart.defaults.font.family = "'Comic Sans MS', cursive, sans-serif";
+        Chart.defaults.color = getComputedStyle(document.documentElement)
+          .getPropertyValue("--light-text")
+          .trim();
+
+        // Initialiseer spoken op alle slides
+        document.querySelectorAll(".slides section").forEach((slide) => {
+          addGhostsToSlide(slide);
+        });
+      });
+
+      // RevealJS 'ready' event
+      Reveal.on("ready", (event) => {
+        console.log(
+          "Reveal is ready. Initializing charts based on the first visible slide."
+        );
+        // Initialiseer grafiek voor de eerste slide als die een grafiek heeft
+        const firstSlideId =
+          Reveal.getCurrentSlide().getAttribute("data-slide-id");
+        if (firstSlideId === "ai-tsunami-chart") {
+          initAiPerformanceChart();
+        } else if (firstSlideId === "gdp-optimism-scatter") {
+          initOptimismGdpChart();
+        } else if (firstSlideId === "vonk-van-inzicht") {
+          initAiOptimismByCountryChart();
+        }
+      });
+
+      // RevealJS 'slidechanged' event: voor het initialiseren van grafieken specifiek wanneer hun slide zichtbaar wordt
+      Reveal.addEventListener("slidechanged", function (event) {
+        console.log(
+          "Slide changed to:",
+          event.currentSlide.getAttribute("data-slide-id") || "N/A"
+        );
+
+        // Voeg spoken toe aan de huidige slide indien nodig (addGhostsToSlide heeft een interne check)
+        addGhostsToSlide(event.currentSlide);
+
+        // Initialiseer grafieken op basis van een data-attribuut op de section tag
+        const slideId = event.currentSlide.getAttribute("data-slide-id");
+        if (slideId === "ai-tsunami-chart") {
+          initAiPerformanceChart();
+        } else if (slideId === "gdp-optimism-scatter") {
+          initOptimismGdpChart();
+        } else if (slideId === "vonk-van-inzicht") {
+          initAiOptimismByCountryChart();
+        }
       });
     </script>
   </body>
